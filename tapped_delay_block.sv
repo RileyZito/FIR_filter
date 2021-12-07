@@ -1,3 +1,6 @@
+`timescale 1ns / 100ps
+`default_nettype none
+
 module tapped_delay_block(b, x_in, x_out, y_in, y_out, clk, ena, rst);
 parameter N = 32;
 
@@ -15,7 +18,7 @@ input wire rst;
 logic [N-1:0] x_in_ff;
 always_ff @(posedge clk ) begin : delay_block
     if (rst) begin
-        x_in_ff <= 0
+        x_in_ff <= 0;
     end else if (ena) begin
         x_in_ff <= x_in;
     end
@@ -28,4 +31,5 @@ end
 
 endmodule
 
-//register, adder
+`default_nettype wire // reengages default behaviour, needed when using 
+                      // other designs that expect it.
