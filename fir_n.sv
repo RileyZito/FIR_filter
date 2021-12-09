@@ -24,9 +24,10 @@ generate
                 .b(b         [N-1 : 0]),
                 .x_in(x_in),
                 .x_out(x_wire[N-1 : 0]),
-                .y_in(0),
+                .y_in({N{1'b0}}),
                 .y_out(y_wire[N-1 : 0]),
-                .clk(clk_d),
+                .clk(clk),
+                .clk_d(clk_d),
                 .ena(ena),
                 .rst(rst)
             );
@@ -36,7 +37,8 @@ generate
                 .x_in(x_wire [ DELAYS*N -1    : (DELAYS-1)*N]),
                 .y_in(y_wire [ DELAYS*N -1    : (DELAYS-1)*N]),
                 .y_out(y_out),
-                .clk(clk_d),
+                .clk(clk),
+                .clk_d(clk_d),
                 .ena(ena),
                 .rst(rst)
             );
@@ -47,7 +49,8 @@ generate
                 .x_out(x_wire[(i+1)*N-1 : i*N]),
                 .y_in(y_wire [i*N -1    : (i-1)*N]),
                 .y_out(y_wire[(i+1)*N-1 : i*N]),
-                .clk(clk_d),
+                .clk(clk),
+                .clk_d(clk_d),
                 .ena(ena),
                 .rst(rst)
             );

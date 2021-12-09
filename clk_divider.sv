@@ -14,11 +14,11 @@ output logic clk_d;
 logic [$clog2(CLK_COUNTER)-1:0] counter;
 always_ff @( posedge clk ) begin : blockName
     if (rst) begin
-        counter <= 0;
+        counter <= {$clog2(CLK_COUNTER){1'b0}};
         clk_d <= 0;
     end else begin
         if (counter == CLK_COUNTER) begin
-            counter <= 0;
+            counter <= {$clog2(CLK_COUNTER){1'b0}};
             clk_d <= ~clk_d;
         end else begin
             counter <= counter + 1;

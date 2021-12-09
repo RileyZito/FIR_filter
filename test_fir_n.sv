@@ -58,11 +58,11 @@ initial begin
   repeat(2) @(posedge clk);
 
   // Generate impulse
-  x_in = 0;
+  x_in = {N{1'b0}};
   repeat(1) @(posedge clk_d);
-  x_in = 32'd100;
+  x_in = 32'd101;
   repeat(1) @(posedge clk_d);
-  x_in = 0;
+  x_in = {N{1'b0}};
   repeat(1) @(posedge clk_d);
 
   // Let the response play out 
