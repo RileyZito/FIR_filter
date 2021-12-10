@@ -44,11 +44,11 @@ generate
             );
         end else begin
             tapped_delay_block #(.N(N)) TDBI(
-                .b(b         [(i+1)*N-1 : i*N]),
-                .x_in(x_wire [i*N-1     : (i-1)*N]),
-                .x_out(x_wire[(i+1)*N-1 : i*N]),
-                .y_in(y_wire [i*N -1    : (i-1)*N]),
-                .y_out(y_wire[(i+1)*N-1 : i*N]),
+                .b(b         [(i+1)*N-1 :  i*N]),
+                .x_in(x_wire [ i*N-1    : (i-1)*N]),
+                .x_out(x_wire[(i+1)*N-1 :  i*N]),
+                .y_in(y_wire [ i*N -1   : (i-1)*N]),
+                .y_out(y_wire[(i+1)*N-1 :  i*N]),
                 .clk(clk),
                 .clk_d(clk_d),
                 .ena(ena),
@@ -57,6 +57,10 @@ generate
         end
     end
 endgenerate
+
+task print_io();
+    $display("%d,%d", x_in, y_out);
+endtask
 
 endmodule
 
