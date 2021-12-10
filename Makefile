@@ -11,7 +11,7 @@ SRCS=clk_divider.sv fir_n.sv test_fir_n.sv tapped_delay_block.sv
 .PHONY: clean submission remove_solutions
 
 test_fir_n: ${SRCS}
-	${IVERILOG} $^ -o test_fir_n.bin && ${VVP} test_fir_n.bin ${VVP_POST}
+	${IVERILOG} $^ -o test_fir_n.bin && ${VVP} test_fir_n.bin ${VVP_POST} | python3 parse_output.py
 
 # main.bit: main.sv $(MAIN_SRCS) memories/ili9341_init.memh build.tcl
 # 	@echo "########################################"
@@ -36,4 +36,4 @@ test_fir_n: ${SRCS}
 # Call this to clean up all your generated files
 clean:
 	rm -f *.bin *.vcd *.fst vivado*.log *.jou vivado*.str *.log *.checkpoint *.bit *.html *.xml
-	rm -rf .Xil
+	rm -r results
