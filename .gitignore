@@ -16,3 +16,5 @@
 !**/xilinx/*.xpr
 *__pycache__/
 *output.txt
+results
+.idea/
