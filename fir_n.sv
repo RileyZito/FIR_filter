@@ -13,6 +13,11 @@ input  wire                            clk_d;
 input  wire                            ena;
 input  wire                            rst;
 
+logic signed [N-1:0] x_in_sync;
+always_ff @(posedge clk_d) begin
+    x_in_sync <= x_in;
+end
+
 wire [DELAYS * N -1:0] x_wire;
 wire [DELAYS * N -1:0] y_wire;
 generate
@@ -21,7 +26,7 @@ generate
         if (i == 0) begin
             tapped_delay_block #(.N(N)) TDB0(  // First delay block
                 .b(b         [N-1 : 0]),
-                .x_in(x_in),
+                .x_in(x_in_sync),
                 .x_out(x_wire[N-1 : 0]),
                 .y_in(0),
                 .y_out(y_wire[N-1 : 0]),
