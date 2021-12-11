@@ -1,7 +1,7 @@
 `timescale 1ns / 100ps
 `default_nettype none
 
-module tapped_delay_block(b, x_in, x_out, y_in, y_out, clk, clk_d, ena, rst);
+module tapped_delay_block(b, x_in, x_out, y_in, y_out, clk, ena, rst);
 parameter N = 32;
 
 input  wire  signed [N-1:0] b;
@@ -10,47 +10,26 @@ input  wire  signed [N-1:0] y_in;
 output logic signed [N-1:0] x_out;
 output logic signed [N-1:0] y_out;
 input  wire                 clk;
-input  wire                 clk_d;
 input  wire                 ena;
 input  wire                 rst;
 
 logic signed [N-1:0] x_in_ff;
 
-always_ff @(posedge clk ) begin : rst_block
+always_ff @(posedge clk) begin : delay_block
     if (rst) begin
-        x_in_ff <= 0;
-    end
-end
-
-always_ff @(posedge clk_d ) begin : delay_block
-    if (ena&~rst) begin
-        x_in_ff <= x_in;
+        x_out <= 0;
+    end else begin
+        if (ena) begin
+            x_out <= x_in;
+        end else begin
+            x_out <= x_out;
+        end
     end
 end
 
 always_comb begin : output_logic
     y_out = (x_in * b) + y_in;
-    x_out = x_in_ff;
 end
-
-/* Attempt:
-logic clk_d_ff;
-always_ff @(posedge clk) begin : rst_block
-    clk_d_ff <= clk_d;
-    
-    if (rst) begin
-        x_out <= 0;
-    end else if (ena) begin
-        if ((clk_d_ff ^ clk_d) && clk_d) begin
-            x_out <= x_in;
-        end else begin
-            x_out <= x_out;
-        end
-    end else begin
-        x_out <= x_out;
-    end
-end
-*/
 
 endmodule
 
