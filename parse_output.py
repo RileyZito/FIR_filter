@@ -3,7 +3,7 @@ import fileinput
 import os
 import re
 
-now_fmt = "%y-%M-%d-%h-%m-%s"
+now_fmt = r"%y-%m-%d-%H-%M-%S"
 
 
 def main():
@@ -13,6 +13,8 @@ def main():
 
     # Open a new file in the results folder whose name contains the date and time
     with open(os.path.join("results", f"results_{datetime.datetime.now().strftime(now_fmt)}.csv"), "w") as f:
+        f.writelines(["x_in,y_out\n"])
+        
         # Loop will run until eof
         for line in fileinput.input():
             print(line, end="")  # echo the output to the terminal
