@@ -33,6 +33,25 @@ always_comb begin : output_logic
     x_out = x_in_ff;
 end
 
+/* Attempt:
+logic clk_d_ff;
+always_ff @(posedge clk) begin : rst_block
+    clk_d_ff <= clk_d;
+    
+    if (rst) begin
+        x_out <= 0;
+    end else if (ena) begin
+        if ((clk_d_ff ^ clk_d) && clk_d) begin
+            x_out <= x_in;
+        end else begin
+            x_out <= x_out;
+        end
+    end else begin
+        x_out <= x_out;
+    end
+end
+*/
+
 endmodule
 
 `default_nettype wire // reengages default behaviour, needed when using 
