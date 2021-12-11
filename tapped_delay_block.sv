@@ -29,11 +29,3 @@ endmodule
 
 `default_nettype wire // reengages default behaviour, needed when using 
                       // other designs that expect it.
-
-/*
-Expected:
-       1000,     193000
-          0,     376000  569 = 193 + 376
-          0,     376000
-          0,     193000
-*/
