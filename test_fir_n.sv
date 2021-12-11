@@ -64,23 +64,23 @@ initial begin
   rst = 1;
   ena = 1;
   clk = 0;
-  repeat(2) @(posedge clk);
+  repeat(2) @(negedge clk);
   rst = 0;
-  repeat(2) @(posedge clk_d);
+  repeat(2) @(negedge clk_d);
 
   is_simulating = 1'b1;
 
-  repeat(5) @(posedge clk_d);
+  repeat(5) @(negedge clk_d);
 
   // Generate an impulse
-  repeat(1) @(posedge clk_d);
+  repeat(1) @(negedge clk_d);
   x_in = 32'd1000;
-  repeat(1) @(posedge clk_d);
+  repeat(1) @(negedge clk_d);
   x_in = {N{1'b0}};
-  repeat(1) @(posedge clk_d);
+  repeat(1) @(negedge clk_d);
 
   // Let the response play out
-  repeat(20) @(posedge clk_d);
+  repeat(20) @(negedge clk_d);
 
   $finish;
 end

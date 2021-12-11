@@ -13,25 +13,27 @@ input  wire                 clk;
 input  wire                 ena;
 input  wire                 rst;
 
-logic signed [N-1:0] x_in_ff;
-
-always_ff @(posedge clk) begin : delay_block
-    if (rst) begin
-        x_out <= 0;
-    end else begin
-        if (ena) begin
-            x_out <= x_in;
-        end else begin
-            x_out <= x_out;
-        end
-    end
-end
+register #(.N(N)) REGISTER(
+    .clk(clk),
+    .ena(ena),
+    .rst(rst),
+    .d(x_in),
+    .q(x_out)
+);
 
 always_comb begin : output_logic
-    y_out = (x_in * b) + y_in;
+    y_out = (x_in * b) + y_in;  // x_in changes on negedge
 end
 
 endmodule
 
 `default_nettype wire // reengages default behaviour, needed when using 
                       // other designs that expect it.
+
+/*
+Expected:
+       1000,     193000
+          0,     376000  569 = 193 + 376
+          0,     376000
+          0,     193000
+*/
