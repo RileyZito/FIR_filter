@@ -85,7 +85,7 @@ initial begin
   $finish;
 end
 
-always @(posedge clk_d) begin
+always @(negedge clk_d) begin
   if (is_simulating) begin
     UUT.print_io();
   end
