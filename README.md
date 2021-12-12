@@ -1,5 +1,5 @@
 # FIR_filter
-system Verilog FIR filter with modular number of delays
+system Verilog FIR filter with modular number of delays (registers).
 
 ## TODO
 
@@ -14,9 +14,18 @@ system Verilog FIR filter with modular number of delays
     [] What the makefile does (@Duncan)
     [] What the python script does (csv generation) (@Duncan)
 
-# Context
+# Context (riley)
+
+FIR filters are useful in a number of domains. Primarily, we were interested in their use for controls and signal processing. In signal processing, they are used as a low pass filter that supresses undesirable noise. In controls, they are useful for proportional integral derivative (PID) control as a FIR filter can implement integrals and derivatives. Signal processing is necessary for audio filtering and noise cancellation, as well as cleaner signal outputs from electrical devices like sensors. Controls is necessary for modern day robotics.
+
+system Verilog is an ideal route for implementing an FIR filter as controls with high level programming languages (C++, Arduino, etc.) take longer to run and cannot respond as quickly to changes in the system. system Verilog as a hardware language can respond quickly and could be run on an FPGA to implement effective robotics control in real time.
 
 # Overview
+
+"Duncan and I have changed our MVP to simulating a behavioral system Verilog tapped FIR filter using addition, multiplication, and registers (as delay z^-1 blocks). Our test bench will simulate a step response. We will create a gtkwave file showing the input and output after the filter to validate that this is functioning. We will also write a brief paragraph with a block diagram for how this would benefit a PI control loop.
+
+The stretch goal would be putting our values into Matlab to see a frequency domain plot. A further stretch goal would be to implement the other control blocks in system Verilog to simulate a full PI control loop (subtractor for input, multiplication block). "
+
 
 ## System Diagram
 
