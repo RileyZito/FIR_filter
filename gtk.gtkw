@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sat Dec 11 21:52:46 2021
+[*] Sun Dec 12 04:08:29 2021
 [*]
 [dumpfile] "/home/duncan/comparch/Balancing_Robot/fir_n.vcd"
-[dumpfile_mtime] "Sat Dec 11 21:41:56 2021"
-[dumpfile_size] 1507
+[dumpfile_mtime] "Sun Dec 12 04:04:44 2021"
+[dumpfile_size] 1410
 [savefile] "/home/duncan/comparch/Balancing_Robot/gtk.gtkw"
-[timestart] 305200000
-[size] 1848 1016
+[timestart] 0
+[size] 3768 2096
 [pos] -1 -1
-*-26.000000 566200000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.000000 104000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] test_fir_n.
 [treeopen] test_fir_n.UUT.
 [treeopen] test_fir_n.UUT.genblk1[0].
@@ -17,6 +17,7 @@
 [treeopen] test_fir_n.UUT.genblk1[0].genblk1.TDB0.
 [treeopen] test_fir_n.UUT.genblk1[1].
 [treeopen] test_fir_n.UUT.genblk1[1].genblk1.
+[treeopen] test_fir_n.UUT.genblk1[1].genblk1.TDBI.
 [treeopen] test_fir_n.UUT.genblk1[2].
 [treeopen] test_fir_n.UUT.genblk1[2].genblk1.
 [treeopen] test_fir_n.UUT.genblk1[3].
@@ -36,9 +37,8 @@ test_fir_n.UUT.rst
 [color] 2
 test_fir_n.UUT.x_in[31:0]
 test_fir_n.UUT.y_out[31:0]
-@201
--
 @200
+-
 -Block 1
 @420
 [color] 2
@@ -49,6 +49,8 @@ test_fir_n.UUT.genblk1[0].genblk1.TDB0.y_out[31:0]
 @200
 -
 -Block 2
+@28
+test_fir_n.UUT.genblk1[1].genblk1.TDBI.rst
 @420
 [color] 2
 test_fir_n.UUT.genblk1[1].genblk1.TDBI.x_in[31:0]
