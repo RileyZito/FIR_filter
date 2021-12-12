@@ -66,11 +66,11 @@ initial begin
   clk = 0;
   repeat(2) @(negedge clk);
   rst = 0;
-  repeat(2) @(negedge clk_d);
+  repeat(3) @(negedge clk_d);
 
   is_simulating = 1'b1;
 
-  repeat(5) @(negedge clk_d);
+  repeat(3) @(negedge clk_d);
 
   // Generate an impulse
   repeat(1) @(negedge clk_d);
