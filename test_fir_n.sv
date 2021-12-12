@@ -1,4 +1,3 @@
-// --B_TARGET_START--
 `timescale 1ns/1ps
 `default_nettype none
 module test_fir_n;
@@ -26,7 +25,6 @@ assign b = {
   {32'd376}, 
   {32'd193}
 };
-// --B_TARGET_END--
 
 logic signed [N-1:0] x_in;
 logic signed [N-1:0] y_out;
