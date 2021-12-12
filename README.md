@@ -16,7 +16,7 @@ system Verilog FIR filter with modular number of delays (registers).
 
 # Context (riley)
 
-FIR filters are useful in a number of domains. Primarily, we were interested in their use for controls and signal processing. In signal processing, they are used as a low pass filter that supresses undesirable noise. In controls, they are useful for proportional integral derivative (PID) control as a FIR filter can implement integrals and derivatives. Signal processing is necessary for audio filtering and noise cancellation, as well as cleaner signal outputs from electrical devices like sensors. Controls is necessary for modern day robotics.
+FIR filters are useful in a number of domains. Primarily, we were interested in their use for controls and signal processing. In signal processing, they are used as a low pass filter that suppresses undesirable noise. In controls, they are useful for proportional integral derivative (PID) control as a FIR filter can implement integrals and derivatives. Signal processing is necessary for audio filtering and noise cancellation, as well as cleaner signal outputs from electrical devices like sensors. Controls is necessary for modern day robotics.
 
 system Verilog is an ideal route for implementing an FIR filter as controls with high level programming languages (C++, Arduino, etc.) take longer to run and cannot respond as quickly to changes in the system. system Verilog as a hardware language can respond quickly and could be run on an FPGA to implement effective robotics control in real time.
 
@@ -48,7 +48,7 @@ To enable the number of delays to be parameterizable, we made the decision to de
 
 <img src="/readme_materials/tapped_delay_filter_block.png" width="50%" alt="tapped delay block illustration"/>
 
-Notice that there are two outputs of the `tapped_delay_block` module, where one experiences a delay of z^-1 and the other is determined combinationally as a linear product of its inputs. When chained together, `n` `tapped_delay_block` modules create a `(n-1)`-th order FIR filter (i.e., one with with a maximum delay of `z^{-{n-1}}`). A drawback of this approach is that it implies one unnecessary adder and register; however, the upside of enabling relatively simple generalization to filters of arbitrary orders is great.
+Notice that there are two outputs of the `tapped_delay_block` module, where one experiences a delay of z^-1 and the other is determined combinationally as a linear product of its inputs. When chained together, `n` `tapped_delay_block` modules create a `(n-1)`-th order FIR filter (i.e., one with a maximum delay of `z^{-{n-1}}`). A drawback of this approach is that it implies one unnecessary adder and register; however, the upside of enabling relatively simple generalization to filters of arbitrary orders is great.
 
 ### Schematic
 
@@ -60,7 +60,7 @@ Note that all coefficients, `N`-bit signal inputs, and `N`-bit signal outputs ar
 
 #### Resetting
 
-The frequency of the `clk` implies the input signal's sampling frequency, and correspondingly, each register induces a time delay equivalent to the reciprocal of the `clk` frequency. Because it is the case in practical use cases that the system clock is far slower than the clk signal used for the filter, all flip-flips in the `fir_n` module (and its sub-modules) are asynchronously resettable (i.e., they are sensitive to the positive edge of both `clk` and `rst`).
+The frequency of the `clk` implies the input signal's sampling frequency, and correspondingly, each register induces a time delay equivalent to the reciprocal of the `clk` frequency. Because it is the case in practical use cases that the system clock is far slower than the clk signal used for the filter, all flip-flips in the `fir_n` module (and its submodules) are asynchronously resettable (i.e., they are sensitive to the positive edge of both `clk` and `rst`).
 
 #### Filter Coefficients
 
@@ -75,7 +75,7 @@ The `Makefile` includes the `test_fir_n` recipe which invokes the testbench (see
 - Asserts the filter coefficients according to what is hard-coded in the testbench.
 - Stimulates the `x_in` signal of the `fir_n` module with an impulse of magnitude 1000, then lets the response play out. The number of delays used is hard-coded as a testbench module parameter.
 
-Using the print task within the `fir_n` module, the filter's input and output signals are sent to `stdout` in a CSV format. As such, the `test_fir_n` recipe also invokes the [prase_output.py](parse_output.py) script which consumes these input and output signals and writes them to a `.csv` in the `results/` folder.
+Using the print task within the `fir_n` module, the filter's input and output signals are sent to `stdout` in a CSV format. As such, the `test_fir_n` recipe also invokes the [parse_output.py](parse_output.py) script which consumes these input and output signals and writes them to a `.csv` in the `results/` folder.
 
 ## GTKWave Example
 
@@ -91,7 +91,7 @@ We validated the `fir_n` module using a testbench and the Matlab filter design t
 
 <img src="/readme_materials/filter_design_coeffs.PNG" width="60%" alt="Matlab filter design tool screenshot"/>
 
-We then input these coefficients into the testbench and plotted the resulting impulse response and the frequency response of the filter in matlab. These plots, when compared the expected impulse and frequency response as indicated by the Matlab filter design tool graphs, validate the correctness of our implementation. Note that the magnitude of the testbench's output differs from the expected output; this is due to our manual scaling and rounding of the coefficients and magnitude-1000 impulse stimulation to account for the fact that our setup expects signed integer signals and coefficients.
+We then input these coefficients into the testbench and plotted the resulting impulse response and the frequency response of the filter in matlab. These plots, when compared the expected impulse and frequency response as indicated by the Matlab filter design tool graphs, validate the correctness of our implementation. Note that the magnitude of the test-bench's output differs from the expected output; this is due to our manual scaling and rounding of the coefficients and magnitude-1000 impulse stimulation to account for the fact that our setup expects signed integer signals and coefficients.
 
 ### Matlab filter design tool graphs (expected output)
 
