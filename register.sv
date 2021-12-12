@@ -1,8 +1,10 @@
-`default_nettype none
-
 /*
 A synchronous register (batch of flip flops) with rst > ena.
+
+Code attribution: copied from https://github.com/avinash-nonholonomy/olin-cafe-f21/blob/main/examples/register.sv
 */
+
+`default_nettype none
 
 module register(clk, ena, rst, d, q);
 parameter N = 1;
