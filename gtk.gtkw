@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sun Dec 12 04:08:29 2021
+[*] Sun Dec 12 17:37:28 2021
 [*]
 [dumpfile] "/home/duncan/comparch/Balancing_Robot/fir_n.vcd"
-[dumpfile_mtime] "Sun Dec 12 04:04:44 2021"
-[dumpfile_size] 1410
+[dumpfile_mtime] "Sun Dec 12 17:34:30 2021"
+[dumpfile_size] 1365
 [savefile] "/home/duncan/comparch/Balancing_Robot/gtk.gtkw"
 [timestart] 0
-[size] 3768 2096
+[size] 1848 1016
 [pos] -1 -1
-*-26.000000 104000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-27.000000 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] test_fir_n.
 [treeopen] test_fir_n.UUT.
 [treeopen] test_fir_n.UUT.genblk1[0].
@@ -25,7 +25,7 @@
 [sst_width] 310
 [signals_width] 207
 [sst_expanded] 1
-[sst_vpaned_height] 289
+[sst_vpaned_height] 494
 @28
 test_fir_n.UUT.clk
 test_fir_n.UUT.clk_d
@@ -49,8 +49,6 @@ test_fir_n.UUT.genblk1[0].genblk1.TDB0.y_out[31:0]
 @200
 -
 -Block 2
-@28
-test_fir_n.UUT.genblk1[1].genblk1.TDBI.rst
 @420
 [color] 2
 test_fir_n.UUT.genblk1[1].genblk1.TDBI.x_in[31:0]
