@@ -3,16 +3,16 @@ system Verilog FIR filter with modular number of delays (registers).
 
 ## TODO
 
-[] System diagram (@Duncan)
-[] GTK Wave plot with an explanation (@Duncan)
-[] Describe the context for why this is useful (mention controls, signal processing, etc.) (@Riley)
+[ ] System diagram (@Duncan)
+[ ] GTK Wave plot with an explanation (@Duncan)
+[ ] Describe the context for why this is useful (mention controls, signal processing, etc.) (@Riley)
 [x] Matlab frequency domain and time domain impulse response (with description) (@Riley)
-[] Paragraph overview of the code (@Duncan)
-[] In-line code documentation (mostly, port descriptions) (@Riley)
-[] How to use:
-    [] What to expect regarding the asynchronous reset and divided clock (@Riley)
-    [] What the makefile does (@Duncan)
-    [] What the python script does (csv generation) (@Duncan)
+[ ] Paragraph overview of the code (@Duncan)
+[ ] In-line code documentation (mostly, port descriptions) (@Riley)
+[ ] How to use:
+    [ ] What to expect regarding the asynchronous reset and divided clock (@Riley)
+    [ ] What the makefile does (@Duncan)
+    [ ] What the python script does (csv generation) (@Duncan)
 
 # Context (riley)
 
@@ -22,10 +22,7 @@ system Verilog is an ideal route for implementing an FIR filter as controls with
 
 # Overview
 
-"Duncan and I have changed our MVP to simulating a behavioral system Verilog tapped FIR filter using addition, multiplication, and registers (as delay z^-1 blocks). Our test bench will simulate a step response. We will create a gtkwave file showing the input and output after the filter to validate that this is functioning. We will also write a brief paragraph with a block diagram for how this would benefit a PI control loop.
-
-The stretch goal would be putting our values into Matlab to see a frequency domain plot. A further stretch goal would be to implement the other control blocks in system Verilog to simulate a full PI control loop (subtractor for input, multiplication block). "
-
+An FIR filter is a filter whose frequency domain response can be described in the Z-plane as a polynomial of $$z^-1$$ terms. 
 
 ## System Diagram
 
