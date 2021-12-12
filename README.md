@@ -4,15 +4,15 @@ system Verilog FIR filter with modular number of delays (registers).
 ## TODO
 
 - [x] System diagram (@Duncan)
-- [ ] GTK Wave plot with an explanation (@Duncan)
-- [ ] Describe the context for why this is useful (mention controls, signal processing, etc.) (@Riley)
+- [x] GTK Wave plot with an explanation (@Duncan)
+- [x] Describe the context for why this is useful (mention controls, signal processing, etc.) (@Riley)
 - [x] Matlab frequency domain and time domain impulse response (with description) (@Riley)
 - [x] Paragraph overview of the code (@Duncan)
 - [ ] In-line code documentation (mostly, port descriptions) (@Riley)
 - [ ] How to use:
     - [ ] What to expect regarding the asynchronous reset and divided clock (@Riley)
-    - [ ] What the makefile does (@Duncan)
-    - [ ] What the python script does (csv generation) (@Duncan)
+    - [x] What the makefile does (@Duncan)
+    - [x] What the python script does (csv generation) (@Duncan)
 
 # Context (riley)
 
@@ -46,7 +46,7 @@ The block diagram of the above takes the following form:
 
 To enable the number of delays to be parameterizable, we made the decision to design the FIR module such that it is composed of `tapped_delay_block` module instances that are created in a `generate` statement. The following diagram illustrates the functionality of the `tapped_delay_block` within the context of a FIR block diagram:
 
-<img src="/readme_materials/tapped_delay_filter_block.png" width="50%" alt="tapped delay block illustration">
+<img src="/readme_materials/tapped_delay_filter_block.png" width="50%" alt="tapped delay block illustration"/>
 
 Notice that there are two outputs of the `tapped_delay_block` module, where one experiences a delay of z^-1 and the other is determined combinationally as a linear product of its inputs. When chained together, `n` `tapped_delay_block` modules create a `(n-1)`-th order FIR filter (i.e., one with with a maximum delay of `z^{-{n-1}}`). A drawback of this approach is that it implies one unnecessary adder and register; however, the upside of enabling relatively simple generalization to filters of arbitrary orders is great.
 
@@ -54,7 +54,7 @@ Notice that there are two outputs of the `tapped_delay_block` module, where one 
 
 The below schematic illustrates the `fir_n` module and its constituent `tapped_delay_block` module instances:
 
-<img src="/readme_materials/fir_schematic.png" width="100%" alt="fir schematic">
+<img src="/readme_materials/fir_schematic.png" width="100%" alt="fir schematic"/>
 
 Note that all coefficients, `N`-bit signal inputs, and `N`-bit signal outputs are interpreted as signed (two's complement) integers.
 
@@ -77,18 +77,28 @@ The `Makefile` includes the `test_fir_n` recipe which invokes the testbench (see
 
 Using the print task within the `fir_n` module, the filter's input and output signals are sent to `stdout` in a CSV format. As such, the `test_fir_n` recipe also invokes the [prase_output.py](parse_output.py) script which consumes these input and output signals and writes them to a `.csv` in the `results/` folder.
 
+## GTKWave Example
+
+Included in this repository is a [GTKWave configuration file](gtk.gtkw) that shows the following after running the testbench with `n=4` `tapped_delay_blocks`:
+
+<img src="/readme_materials/gtkw.png" width="60%" alt="GTKWave screenshot"/>
+
+The orange signals illustrate the `x_in` signals for the `fir_n` and `tapped_delay_block` modules. As can be seen, the asynchronously asserted input gets synchronized with `clk_d`, and the delays induced by the filter can be seen in the impulse appearing to travel from left to right as you look from top (the first `tapped_delay_block`) to bottom (the last `taped_delay_block`). Interpretation of the output can be found in the below "validation" section.
+
 # Validation
 
 We validated the `fir_n` module using a testbench and the Matlab filter design tool. In the design tool we created an FIR filter and saved the co-efficients. 
 
-![Matlab filter design tool](/readme_materials/filter_design_coeffs.PNG)
+<img src="/readme_materials/filter_design_coeffs.PNG" width="60%" alt="Matlab filter design tool screenshot"/>
 
-We then ran these co-efficients in system Verilog and output y_out values. Using the y_out values, we then plotted the impulse response and the frequency response of the filter in matlab and compared the graphs to the Matlab filter design tool graphs. We found that our results aligned with the expected behavior.
+We then input these coefficients into the testbench and plotted the resulting impulse response and the frequency response of the filter in matlab. These plots, when compared the expected impulse and frequency response as indicated by the Matlab filter design tool graphs, validate the correctness of our implementation. Note that the magnitude of the testbench's output differs from the expected output; this is due to our manual scaling and rounding of the coefficients and magnitude-1000 impulse stimulation to account for the fact that our setup expects signed integer signals and coefficients.
 
-Matlab filter design tool graphs:
-![Matlab filter design tool](/readme_materials/filter_designer_impulse_response.PNG)
-![Matlab filter design tool](/readme_materials/filter_designer_freq_response.PNG)
+### Matlab filter design tool graphs (expected output)
 
-Matlab plots of our results:
-![Matlab filter design tool](/readme_materials/impulse_response_plot.png)
-![Matlab filter design tool](/readme_materials/frequency_response_plot.png)
+<img src="/readme_materials/filter_designer_impulse_response.PNG" width="60%" alt="expected impulse response"/>
+<img src="/readme_materials/filter_designer_freq_response.PNG" width="60%" alt="expected frequency response"/>
+
+### Matlab plots of our results (testbench output)
+
+<img src="/readme_materials/impulse_response_plot.png" width="60%" alt="simulated impulse response"/>
+<img src="/readme_materials/frequency_response_plot.png" width="60%" alt="simulated frequency response"/>
