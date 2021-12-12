@@ -1,5 +1,5 @@
-# FIR_filter
-system Verilog FIR filter with modular number of delays (registers).
+# FIR Filter
+A system Verilog FIR filter with parameterizable number of delays (registers).
 
 ## TODO
 
