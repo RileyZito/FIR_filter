@@ -13,7 +13,7 @@ input  wire                 clk;
 input  wire                 ena;
 input  wire                 rst;
 
-register #(.N(N)) REGISTER(
+async_reg #(.N(N)) REGISTER(
     .clk(clk),
     .ena(ena),
     .rst(rst),

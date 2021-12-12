@@ -13,10 +13,15 @@ input  wire                            clk_d;
 input  wire                            ena;
 input  wire                            rst;
 
+// Synchronizes x_in with clk_d
 logic signed [N-1:0] x_in_sync;
-always_ff @(posedge clk_d) begin
-    x_in_sync <= x_in;
-end
+async_reg #(.N(N)) SYNCHRONIZER_X_IN(
+    .clk(clk_d),
+    .ena(ena),
+    .rst(rst),
+    .d(x_in),
+    .q(x_in_sync)
+);
 
 wire [DELAYS * N -1:0] x_wire;
 wire [DELAYS * N -1:0] y_wire;

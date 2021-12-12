@@ -5,7 +5,7 @@ VVP=vvp
 VVP_POST=-fst
 VIVADO=vivado -mode batch -source
 
-SRCS=clk_divider.sv fir_n.sv test_fir_n.sv tapped_delay_block.sv register.sv
+SRCS=clk_divider.sv fir_n.sv test_fir_n.sv tapped_delay_block.sv async_reg.sv
 
 # Look up .PHONY rules for Makefiles
 .PHONY: clean submission remove_solutions
