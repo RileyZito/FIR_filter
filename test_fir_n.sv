@@ -80,7 +80,7 @@ initial begin
   repeat(1) @(negedge clk_d);
 
   // Let the response play out
-  repeat(20) @(negedge clk_d);
+  repeat(DELAYS + 5) @(negedge clk_d);
 
   $finish;
 end
