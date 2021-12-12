@@ -22,7 +22,14 @@ system Verilog is an ideal route for implementing an FIR filter as controls with
 
 # Overview
 
-An FIR filter is a filter whose frequency domain response can be described in the Z-plane as a polynomial of $$z^-1$$ terms. 
+An FIR filter is a filter whose frequency domain response can be described in the Z-plane as a polynomial of $$z^-1$$ terms:
+
+$$y_{\text{out}}[k] = \sum_{i=0}^{n}b_i x_{\text{in}}[k - i]$$
+
+The block diagram of the above looks like the following:
+
+!(fir block digram)[readme_materials/fir_block.png]
+
 
 ## System Diagram
 
