@@ -1,22 +1,21 @@
 `timescale 1ns / 100ps
 `default_nettype none
 
-module fir_n(x_in, y_out, b, clk, clk_d, ena, rst);
+module fir_n(x_in, y_out, b, clk, clk, ena, rst);
 parameter DELAYS = 3;  // Number of delay blocks (must be >= 2)
 parameter N = 32;
 
-    input  wire  signed [N-1:0]            x_in; //input to the system, recieves initial impulse
-    output logic signed [N-1:0]            y_out; //output to the system, shows impulse response
-    input  wire         [(DELAYS+1)*N-1:0] b; //co-efficients
-input  wire                            clk;
-input  wire                            clk_d; //divided clock
+input  wire  signed [N-1:0]            x_in;  // input to the system, recieves initial impulse
+output logic signed [N-1:0]            y_out; // output to the system, shows impulse response
+input  wire         [(DELAYS+1)*N-1:0] b;     // coefficients
+input  wire                            clk;  //divided clock
 input  wire                            ena;
 input  wire                            rst;
 
-// Synchronizes x_in with clk_d
+// Synchronizes x_in with clk
 logic signed [N-1:0] x_in_sync;
 async_reg #(.N(N)) SYNCHRONIZER_X_IN(
-    .clk(clk_d),
+    .clk(clk),
     .ena(ena),
     .rst(rst),
     .d(x_in),
@@ -35,7 +34,7 @@ generate
                 .x_out(x_wire[N-1 : 0]),
                 .y_in(0), //first block does not recieve any previous y_wire input
                 .y_out(y_wire[N-1 : 0]),
-                .clk(clk_d),
+                .clk(clk),
                 .ena(ena),
                 .rst(rst)
             );
@@ -45,7 +44,7 @@ generate
                 .x_in(x_wire [ DELAYS*N -1    : (DELAYS-1)*N]),
                 .y_in(y_wire [ DELAYS*N -1    : (DELAYS-1)*N]),
                 .y_out(y_out), //final output of the FIR filter
-                .clk(clk_d),
+                .clk(clk),
                 .ena(ena),
                 .rst(rst)
             );
@@ -56,7 +55,7 @@ generate
                 .x_out(x_wire[(i+1)*N-1 :  i*N]),
                 .y_in(y_wire [ i*N -1   : (i-1)*N]),
                 .y_out(y_wire[(i+1)*N-1 :  i*N]),
-                .clk(clk_d),
+                .clk(clk),
                 .ena(ena),
                 .rst(rst)
             );

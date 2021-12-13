@@ -43,8 +43,7 @@ fir_n #(.DELAYS(DELAYS), .N(N)) UUT(
   .x_in(x_in),
   .y_out(y_out),
   .b(b),
-  .clk(clk),
-  .clk_d(clk_d),
+  .clk(clk_d),
   .ena(ena),
   .rst(rst)
 );
