@@ -1,7 +1,7 @@
 # FIR Filter
 A system Verilog finite impulse resonse (FIR) filter with parameterizable number of delays (registers).
 
-# Context (riley)
+# Context
 
 FIR filters are useful in a number of domains. Primarily, we were interested in their use for controls and signal processing. In signal processing, they are used as a low pass filter that suppresses undesirable noise. In controls, they are useful for proportional integral derivative (PID) control as a FIR filter can implement integrals and derivatives. Signal processing is necessary for audio filtering and noise cancellation, as well as cleaner signal outputs from electrical devices like sensors. Controls is necessary for modern day robotics.
 
