@@ -1,18 +1,5 @@
 # FIR Filter
-A system Verilog FIR filter with parameterizable number of delays (registers).
-
-## TODO
-
-- [x] System diagram (@Duncan)
-- [x] GTK Wave plot with an explanation (@Duncan)
-- [x] Describe the context for why this is useful (mention controls, signal processing, etc.) (@Riley)
-- [x] Matlab frequency domain and time domain impulse response (with description) (@Riley)
-- [x] Paragraph overview of the code (@Duncan)
-- [ ] In-line code documentation (mostly, port descriptions) (@Riley)
-- [ ] How to use:
-    - [ ] What to expect regarding the asynchronous reset and divided clock (@Riley)
-    - [x] What the makefile does (@Duncan)
-    - [x] What the python script does (csv generation) (@Duncan)
+A system Verilog finite impulse resonse (FIR) filter with parameterizable number of delays (registers).
 
 # Context (riley)
 
@@ -28,7 +15,9 @@ Primary System Verilog files:
 
 ## FIR Filter Overview
 
-An FIR filter is a filter whose frequency domain response can be described in the Z-plane as a polynomial expression of `z^-1` terms:
+A FIR filter takes an input signal and propagates it through a series of delays. Each delay's output is multiplied by a coefficient and added to the previous delay's scaled output.
+
+More rigorously, a FIR filter is a filter whose frequency domain response can be described in the Z-plane as a polynomial expression of `z^-1` terms:
 
 <img src="/readme_materials/fir_z_domain_eq.png" height="70rem" alt="fir z domain equation"/>
 
