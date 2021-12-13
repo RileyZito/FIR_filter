@@ -17,8 +17,6 @@ logic is_simulating;  // Used to toggle the I/O printing.
 // of the coefficient (as each coefficient is interpreted as a signed integer). The number
 // of coefficents must be 1 greater than the DELAYS value.
 wire [(DELAYS + 1) * N - 1:0] b;
-
-
 assign b = {
   {32'd193}, 
   {32'd376}, 

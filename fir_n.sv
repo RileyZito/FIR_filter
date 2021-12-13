@@ -2,13 +2,13 @@
 `default_nettype none
 
 module fir_n(x_in, y_out, b, clk, clk, ena, rst);
-parameter DELAYS = 3;  // Number of delay blocks (must be >= 2)
+parameter DELAYS = 3;  // Number of delays (must be >= 2); number of tapped_delay_block instances is one greater than the number of delays.
 parameter N = 32;
 
-input  wire  signed [N-1:0]            x_in;  // input to the system, recieves initial impulse
-output logic signed [N-1:0]            y_out; // output to the system, shows impulse response
-input  wire         [(DELAYS+1)*N-1:0] b;     // coefficients
-input  wire                            clk;  //divided clock
+input  wire  signed [N-1:0]            x_in;  // filter signal imput (as a signed integer)
+output logic signed [N-1:0]            y_out; // output from the system (as a signed integer)
+input  wire         [(DELAYS+1)*N-1:0] b;     // signed integer coefficients, concatenated in order from 0th delay coefficient to nth delay coefficient
+input  wire                            clk;   // divided clock
 input  wire                            ena;
 input  wire                            rst;
 
@@ -22,17 +22,17 @@ async_reg #(.N(N)) SYNCHRONIZER_X_IN(
     .q(x_in_sync)
 );
 
-    wire [DELAYS * N -1:0] x_wire; //wires that connect the delay blocks (registers) to propagate x_in through the system
-    wire [DELAYS * N -1:0] y_wire; //wires that connect y_out combinational logic from each delay block and adds them together for final y_out
+wire [DELAYS * N -1:0] x_wire; // wires that connect the delay blocks (registers) to propagate x_in through the filter
+wire [DELAYS * N -1:0] y_wire; // wires that connect y_out from the tapped_delay_blocks to propagate y_in through the filter
 generate
     genvar i;
     for(i = 0; i <= DELAYS; i++) begin
         if (i == 0) begin
             tapped_delay_block #(.N(N)) TDB0(  // First delay block
                 .b(b         [N-1 : 0]),
-                .x_in(x_in_sync), //initial x_in input
+                .x_in(x_in_sync), // initial x_in input
                 .x_out(x_wire[N-1 : 0]),
-                .y_in(0), //first block does not recieve any previous y_wire input
+                .y_in(0), // first block does not recieve any previous y_wire input
                 .y_out(y_wire[N-1 : 0]),
                 .clk(clk),
                 .ena(ena),
