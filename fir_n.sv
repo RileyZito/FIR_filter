@@ -5,11 +5,11 @@ module fir_n(x_in, y_out, b, clk, clk_d, ena, rst);
 parameter DELAYS = 3;  // Number of delay blocks (must be >= 2)
 parameter N = 32;
 
-input  wire  signed [N-1:0]            x_in;
-output logic signed [N-1:0]            y_out;
-input  wire         [(DELAYS+1)*N-1:0] b;
+    input  wire  signed [N-1:0]            x_in; //input to the system, recieves initial impulse
+    output logic signed [N-1:0]            y_out; //output to the system, shows impulse response
+    input  wire         [(DELAYS+1)*N-1:0] b; //co-efficients
 input  wire                            clk;
-input  wire                            clk_d;
+input  wire                            clk_d; //divided clock
 input  wire                            ena;
 input  wire                            rst;
 
@@ -23,17 +23,17 @@ async_reg #(.N(N)) SYNCHRONIZER_X_IN(
     .q(x_in_sync)
 );
 
-wire [DELAYS * N -1:0] x_wire;
-wire [DELAYS * N -1:0] y_wire;
+    wire [DELAYS * N -1:0] x_wire; //wires that connect the delay blocks (registers) to propagate x_in through the system
+    wire [DELAYS * N -1:0] y_wire; //wires that connect y_out combinational logic from each delay block and adds them together for final y_out
 generate
     genvar i;
     for(i = 0; i <= DELAYS; i++) begin
         if (i == 0) begin
             tapped_delay_block #(.N(N)) TDB0(  // First delay block
                 .b(b         [N-1 : 0]),
-                .x_in(x_in_sync),
+                .x_in(x_in_sync), //initial x_in input
                 .x_out(x_wire[N-1 : 0]),
-                .y_in(0),
+                .y_in(0), //first block does not recieve any previous y_wire input
                 .y_out(y_wire[N-1 : 0]),
                 .clk(clk_d),
                 .ena(ena),
@@ -44,7 +44,7 @@ generate
                 .b(b         [(DELAYS+1)*N-1  :  DELAYS*N]),
                 .x_in(x_wire [ DELAYS*N -1    : (DELAYS-1)*N]),
                 .y_in(y_wire [ DELAYS*N -1    : (DELAYS-1)*N]),
-                .y_out(y_out),
+                .y_out(y_out), //final output of the FIR filter
                 .clk(clk_d),
                 .ena(ena),
                 .rst(rst)
