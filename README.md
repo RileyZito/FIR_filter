@@ -26,7 +26,7 @@ Primary System Verilog files:
 - [fir_n.sv](fir_n.sv)
 - [tapped_delay_block.sv](tapped_delay_block.sv)
 
-## FIR Filter Recap
+## FIR Filter Overview
 
 An FIR filter is a filter whose frequency domain response can be described in the Z-plane as a polynomial expression of `z^-1` terms:
 
